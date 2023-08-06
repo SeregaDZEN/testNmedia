@@ -13,5 +13,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "testNmedia"
+rootProject.name = "nmedia"
 include ':app'
