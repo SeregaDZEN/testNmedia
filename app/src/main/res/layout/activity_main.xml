@@ -84,9 +84,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/horizontal_length"
         android:text="@string/number_like"
+        app:layout_constraintBottom_toBottomOf="@id/button_like"
         app:layout_constraintStart_toEndOf="@+id/button_like"
-        app:layout_constraintTop_toTopOf="@id/button_like"
-        app:layout_constraintBottom_toBottomOf="@id/button_like"/>
+        app:layout_constraintTop_toTopOf="@id/button_like" />
 
     <ImageButton
         android:id="@+id/button_like"
@@ -94,6 +94,8 @@
         android:layout_height="@dimen/image_settings"
         android:layout_marginStart="@dimen/vertical_length"
         android:layout_marginTop="@dimen/vertical_length"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/number_like"
         app:layout_constraintEnd_toStartOf="@id/text_forLike"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/contentBottom"
@@ -105,6 +107,8 @@
         android:layout_height="@dimen/image_settings"
         android:layout_marginStart="@dimen/image_settings"
         android:layout_marginTop="@dimen/vertical_length"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/textNameForShare"
         app:layout_constraintStart_toEndOf="@id/text_forLike"
         app:layout_constraintTop_toBottomOf="@id/contentBottom"
         app:srcCompat="@drawable/ic_share" />
@@ -113,12 +117,13 @@
         android:id="@+id/image_see"
         android:layout_width="@dimen/image_settings"
         android:layout_height="@dimen/image_settings"
-
         android:layout_marginEnd="@dimen/horizontal_length"
-        app:layout_constraintTop_toTopOf="@id/text_forSee"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/number_see"
         app:layout_constraintBottom_toBottomOf="@id/text_forSee"
         app:layout_constraintEnd_toStartOf="@id/text_forSee"
         app:layout_constraintTop_toBottomOf="@id/contentBottom"
+        app:layout_constraintTop_toTopOf="@id/text_forSee"
         app:srcCompat="@drawable/ic_eye" />
 
 
@@ -138,11 +143,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/horizontal_length"
 
-        app:layout_constraintTop_toTopOf="@id/button_share"
-        app:layout_constraintBottom_toBottomOf="@id/button_share"
         android:text="@string/textNameForShare"
+        app:layout_constraintBottom_toBottomOf="@id/button_share"
         app:layout_constraintStart_toEndOf="@id/button_share"
-        app:layout_constraintTop_toBottomOf="@id/contentBottom" />
+        app:layout_constraintTop_toBottomOf="@id/contentBottom"
+        app:layout_constraintTop_toTopOf="@id/button_share" />
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/contentBottom"
