@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name" translatable="false">NMedia</string>
     <string name="nMedia">NMedia!</string>
+    <string name="avatar" translatable="false">avatar</string>
+    <string name="menu" translatable="false">menu</string>
+    <string name="number_like" translatable="false">5</string>
+    <string name="number_see" translatable="false">5k</string>
+    <string name="textNameForShare">telegram</string>
 </resources>
