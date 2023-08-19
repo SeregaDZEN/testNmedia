@@ -1,17 +1,14 @@
 package ru.netology.nmedia.functions
 
 
-
 fun reduceNumber(count: Int): String {
-
 
 
     val oneThousands = count / 1000
     val hundredThousands = (count % 1_000_000) / 100_000
     val oneHundreds = (count % 1000) / 100
-
-
     val oneMillion = (count / 1_000_000)
+
     when {
         count < 1000 -> return "$count"
         count in 1000..9_999 -> {

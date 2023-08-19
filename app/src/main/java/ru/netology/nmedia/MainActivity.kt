@@ -10,6 +10,8 @@ import ru.netology.nmedia.functions.reduceNumber
 
 class MainActivity : AppCompatActivity() {
 
+    val str = "userId"
+
     private var _binding: ActivityMainBinding? = null
     private val binding: ActivityMainBinding
         get() = _binding!!
@@ -24,10 +26,11 @@ class MainActivity : AppCompatActivity() {
             published = "13 августа в 19:36",
             likes = 0,
             share = 0,
+            views = 0,
             likedByMe = false
 
         )
-
+//Сейчас уже должно быть отформатировано
         with(binding) {
             root.setOnClickListener {
                 println("root")
@@ -42,9 +45,14 @@ class MainActivity : AppCompatActivity() {
             menu.setOnClickListener{
                 println("menu")
             }
+           
+
             author.text = post.author
             published.text = post.published
             content.text = post.content
+            textForLike.text = reduceNumber(post.likes)
+            textForShare.text = reduceNumber(post.share)
+            textForSee.text = post.views.toString()
 
             buttonLike.setImageResource(if (post.likedByMe) R.drawable.like_red else R.drawable.ic_like)
 
@@ -53,13 +61,16 @@ class MainActivity : AppCompatActivity() {
                 post.likedByMe = !post.likedByMe
 
                 if (post.likedByMe) {
-                    post.likes++
+                    post.likes +=1999
+                    val shortLike = reduceNumber(post.likes)
+                    textForLike.text = shortLike
                     buttonLike.setImageResource(R.drawable.like_red)
-                    textForLike.text = post.likes.toString()
+
                 } else {
                     post.likes--
+                    val shortLike = reduceNumber(post.likes)
+                    textForLike.text = shortLike
                     buttonLike.setImageResource(R.drawable.ic_like)
-                    textForLike.text = post.likes.toString()
                 }
             }
             binding.buttonShare.setOnClickListener {
@@ -69,6 +80,7 @@ class MainActivity : AppCompatActivity() {
                 // применил функцию сокращения
 
             }
+
         }
 
 
