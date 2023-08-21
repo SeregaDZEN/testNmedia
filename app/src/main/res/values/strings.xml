@@ -5,8 +5,5 @@
     <string name="menu" translatable="false">menu</string>
     <string name="number_like" translatable="false">0</string>
     <string name="number_see" translatable="false">5k</string>
-    <string name="go">go</string>
-    <string name="back">back</string>
-    <string name="ii">ii</string>
     <string name="textNameForShare" translatable="false">telegram</string>
 </resources>
