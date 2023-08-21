@@ -1,7 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="nMedia">НМедиа</string>
-    <string name="go">вперёд</string>
-    <string name="back">назад</string>
-    <string name="ii">ии</string>
 </resources>
