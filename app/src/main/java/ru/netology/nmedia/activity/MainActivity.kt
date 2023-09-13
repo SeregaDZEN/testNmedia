@@ -84,7 +84,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
         binding.changePostText.setOnClickListener{
-
+            
         }
         binding.saveButton.setOnClickListener {
             with(binding.changePostText) {
