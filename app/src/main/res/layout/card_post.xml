@@ -14,11 +14,10 @@
         android:layout_height="@dimen/avatar_size"
         android:layout_marginBottom="@dimen/common_spacing"
         android:contentDescription="@string/avatar"
+        android:src="@drawable/post_avatar_drawable"
         app:layout_constraintBottom_toBottomOf="@id/barrier"
         app:layout_constraintStart_toStartOf="parent"
-        android:src="@drawable/post_avatar_drawable"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/author"
@@ -26,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/common_spacing"
         android:layout_marginEnd="@dimen/common_spacing"
-        android:ellipsize="end"
+        android:maxLines="1"
         android:singleLine="true"
         app:layout_constraintBottom_toTopOf="@+id/published"
         app:layout_constraintEnd_toStartOf="@id/menu"
@@ -70,7 +69,7 @@
         app:constraint_referenced_ids="avatar,published,menu" />
 
     <TextView
-        android:id="@+id/content"
+        android:id="@+id/changePostText2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/common_spacing"
@@ -156,8 +155,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="bottom"
-        app:constraint_referenced_ids="content" />
-
+        app:constraint_referenced_ids="changePostText2" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

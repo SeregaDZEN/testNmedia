@@ -1,69 +1,91 @@
 package ru.netology.nmedia.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.netology.nmedia.R
+import ru.netology.nmedia.databinding.ActivityMainBinding
 import ru.netology.nmedia.databinding.CardPostBinding
 import ru.netology.nmedia.dto.Post
 import ru.netology.nmedia.functions.reduceNumber
 
-typealias OnClickListener = (post: Post) -> Unit
+interface OnClickListener {
 
-class PostsAdapter(
-    private val onLikeListener: OnClickListener,
-    private val onShareListener: OnClickListener
-) :
+    fun onLike(post: Post) {}
+
+    fun onEdit(post: Post) {}
+    fun onRemove(post: Post) {}
+    fun onShare(post: Post) {}
+}
+
+class PostsAdapter(private val onClickListener: OnClickListener) :
     ListAdapter<Post, PostViewHolder>(PostDiffCallback()) {
 
-
-    //cоздаем класс кот-ый содержит в себе  информацию и разметку, и передаётся в RecyclerView
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val binding = CardPostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return PostViewHolder(binding, onLikeListener, onShareListener)
+        return PostViewHolder(binding, onClickListener)
     }
 
-    // заполняаем элементы
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
 
         val post = getItem(position)
         holder.bind(post)
     }
-
-//  override fun getItemCount(): Int = list.size
 }
 
 class PostViewHolder(
     private val binding: CardPostBinding,
-    private val onLikeListener: OnClickListener,
-    private val onShareListener: OnClickListener
+    private val onClickListener: OnClickListener
 ) : RecyclerView.ViewHolder(binding.root) {
+
     fun bind(post: Post) {
         binding.apply {
             author.text = post.author
             published.text = post.published
-            content.text = post.content
+            changePostText2.text = post.content
             textForLike.text = reduceNumber(post.likes)
             textForShare.text = reduceNumber(post.share)
             textForSee.text = post.views.toString()
 
-            buttonLike.setImageResource(if (!post.likedByMe) R.drawable.ic_like else R.drawable.like_red)
+            menu.setOnClickListener {
+                PopupMenu(it.context, it).apply {
+                    inflate(R.menu.menu_post)
+                    setOnMenuItemClickListener { item ->
+                        when (item.itemId) {
+                            R.id.removeInMenu -> {
+                                onClickListener.onRemove(post)
+                                true
+                            }
+
+                            R.id.editInMenu -> {
+
+                                onClickListener.onEdit(post)
+                                true
+                            }
+
+                            else -> false
+                        }
+                    }
+                }.show()
+            }
+
+            buttonLike.setImageResource(if (!post.likedByMe) R.drawable.ic_like else R.drawable.ic_red_like)
 
             buttonLike.setOnClickListener {
-                onLikeListener(post)
+                onClickListener.onLike(post)
             }
 
             binding.buttonShare.setOnClickListener {
-                onShareListener(post)
+                onClickListener.onShare(post)
             }
         }
     }
 
 }
-
-// следит за элементами, когда обновляем список
 
 class PostDiffCallback : DiffUtil.ItemCallback<Post>() {
     override fun areItemsTheSame(oldItem: Post, newItem: Post) = oldItem.id == newItem.id

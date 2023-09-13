@@ -6,4 +6,21 @@
     <string name="number_like" translatable="false">0</string>
     <string name="number_see" translatable="false">5k</string>
     <string name="textNameForShare" translatable="false">telegram</string>
+    <string name="description_post_author_avatar">description_post_author_avatar</string>
+    <string name="description_post_menu">description_post_menu</string>
+    <string name="description_post_like">description_post_like</string>
+    <string name="description_post_share">description_post_share</string>
+    <string name="description_post_save">description_post_save</string>
+    <string name="menu_edit">menu_edit</string>
+    <string name="menu_remove">menu_remove</string>
+    <string name="post_text">post_text</string>
+    <string name="error_empty_context">error_empty_context</string>
+    <string name="edit">Edit</string>
+    <string name="remove">Remove</string>
+    <string name="cancel">cancel</string>
+    <string name="edit_message">Edit Message</string>
+    <string name="editMessage" translatable="false">Edit Message</string>
+    <string name="enter_cross">enter cross</string>
+    <string name="editPost" translatable="false">Add Post</string>
+
 </resources>
