@@ -47,7 +47,6 @@ class PostViewHolder(
             changePostText2.text = post.content
             buttonShare.text = reduceNumber(post.share)
             textForSee.text = post.views.toString()
-            buttonLike.isChecked = post.likedByMe
             buttonLike.text = reduceNumber(post.likes)
 
             menu.setOnClickListener {
@@ -77,8 +76,10 @@ class PostViewHolder(
             buttonLike.setOnClickListener {
                 onClickListener.onLike(post)
             }
+            buttonShare.isChecked= post.shareByMe
 
             binding.buttonShare.setOnClickListener {
+
                 onClickListener.onShare(post)
             }
         }
