@@ -22,5 +22,6 @@
     <string name="editMessage" translatable="false">Edit Message</string>
     <string name="enter_cross">enter cross</string>
     <string name="editPost" translatable="false">Add Post</string>
+    <string name="default_number" translatable="false">10</string>
 
 </resources>

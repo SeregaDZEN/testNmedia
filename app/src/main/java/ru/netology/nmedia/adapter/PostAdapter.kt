@@ -1,14 +1,12 @@
 package ru.netology.nmedia.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.netology.nmedia.R
-import ru.netology.nmedia.databinding.ActivityMainBinding
 import ru.netology.nmedia.databinding.CardPostBinding
 import ru.netology.nmedia.dto.Post
 import ru.netology.nmedia.functions.reduceNumber
@@ -47,9 +45,10 @@ class PostViewHolder(
             author.text = post.author
             published.text = post.published
             changePostText2.text = post.content
-            textForLike.text = reduceNumber(post.likes)
-            textForShare.text = reduceNumber(post.share)
+            buttonShare.text = reduceNumber(post.share)
             textForSee.text = post.views.toString()
+            buttonLike.isChecked = post.likedByMe
+            buttonLike.text = reduceNumber(post.likes)
 
             menu.setOnClickListener {
                 PopupMenu(it.context, it).apply {
@@ -73,7 +72,7 @@ class PostViewHolder(
                 }.show()
             }
 
-            buttonLike.setImageResource(if (!post.likedByMe) R.drawable.ic_like else R.drawable.ic_red_like)
+            buttonLike.isChecked = post.likedByMe
 
             buttonLike.setOnClickListener {
                 onClickListener.onLike(post)
