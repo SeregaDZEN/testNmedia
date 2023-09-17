@@ -119,8 +119,7 @@
         app:backgroundTint="@android:color/transparent"
         app:icon="@drawable/ic_menu_selector"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/image_see"

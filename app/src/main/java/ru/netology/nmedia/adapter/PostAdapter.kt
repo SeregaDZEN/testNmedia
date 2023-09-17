@@ -36,8 +36,7 @@ class PostsAdapter(private val onClickListener: OnClickListener) :
 }
 
 class PostViewHolder(
-    private val binding: CardPostBinding,
-    private val onClickListener: OnClickListener
+    private val binding: CardPostBinding, private val onClickListener: OnClickListener
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(post: Post) {
@@ -76,11 +75,12 @@ class PostViewHolder(
             buttonLike.setOnClickListener {
                 onClickListener.onLike(post)
             }
-            buttonShare.isChecked= post.shareByMe
+            buttonShare.isChecked = post.shareByMe
 
             binding.buttonShare.setOnClickListener {
-
                 onClickListener.onShare(post)
+                buttonShare.isChecked = post.shareByMe
+
             }
         }
     }
