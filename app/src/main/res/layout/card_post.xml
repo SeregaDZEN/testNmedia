@@ -90,7 +90,6 @@
         android:layout_marginStart="@dimen/horizontal_length"
         android:layout_marginTop="@dimen/vertical_length"
         android:checkable="true"
-        android:contentDescription="@string/number_like"
         app:backgroundTint="@android:color/transparent"
         app:icon="@drawable/ic_like_selector"
         app:layout_constraintStart_toStartOf="parent"

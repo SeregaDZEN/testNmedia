@@ -1,9 +1,11 @@
 package ru.netology.nmedia.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.Toast
+import androidx.activity.result.launch
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import ru.netology.nmedia.R
@@ -14,8 +16,10 @@ import ru.netology.nmedia.dto.Post
 import ru.netology.nmedia.functions.AndroidUtils
 import ru.netology.nmedia.viewmodel.PostViewModel
 
+
 class MainActivity : AppCompatActivity() {
     private val viewModel: PostViewModel by viewModels()
+
 
     private val onClickListener = object : OnClickListener {
         override fun onLike(post: Post) {
@@ -23,7 +27,13 @@ class MainActivity : AppCompatActivity() {
         }
 
         override fun onShare(post: Post) {
-            viewModel.share(post.id)
+            val intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                type = "text/plain"
+                putExtra(Intent.EXTRA_TEXT, post.content)
+            }
+            val chooser = Intent.createChooser(intent, getString(R.string.chooser_share_post))
+            startActivity(chooser)
         }
 
         override fun onEdit(post: Post) {
@@ -41,6 +51,12 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val newPostLauncher = registerForActivityResult(NewPostContract) { text ->
+            text ?: return@registerForActivityResult
+            viewModel.changeContent(text)
+            viewModel.save()
+        }
+
         val adapter = PostsAdapter(onClickListener)
         binding.listRC.adapter = adapter
         viewModel.dataOfClassPost.observe(this) { posts ->
@@ -49,64 +65,67 @@ class MainActivity : AppCompatActivity() {
                 if (newPost) binding.listRC.smoothScrollToPosition(0)
             }
         }
-
-
-
-
-        viewModel.editedEmptyPost.observe(this) { post ->
-            if (post.id != 0L)
-                with(binding.changePostText) {
-                    requestFocus()
-                    setText(post.content)
-                    binding.EditView.editCL.visibility = VISIBLE
-                    binding.EditView.textEdit.text = post.content
-                    binding.EditView.cancelButton.setOnClickListener {
-
-                        binding.EditView.editCL.visibility = GONE
-                        clearFocus()
-                        setText((""))
-                        AndroidUtils.hideKeyboard(this)
-                    }
-                } else {
-                viewModel.editedEmptyPost.observe(this) {
-                    binding.changePostText.setOnClickListener {
-                        binding.EditViewClear.editCLPost.visibility = VISIBLE
-                        binding.EditViewClear.cancelBPost.setOnClickListener {
-                            with(binding.changePostText) {
-                                binding.EditViewClear.editCLPost.visibility = GONE
-                                clearFocus()
-                                setText((""))
-                                AndroidUtils.hideKeyboard(this)
-                            }
-                        }
-                    }
-                }
-            }
+        binding.plus.setOnClickListener {
+            newPostLauncher.launch()
         }
-        binding.changePostText.setOnClickListener{
-            
-        }
-        binding.saveButton.setOnClickListener {
-            with(binding.changePostText) {
-                if (text.isNullOrBlank()) {
-                    Toast.makeText(
-                        this@MainActivity,
-                        context.getString(R.string.error_empty_context),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                } else {
-                    viewModel.changeContent(text.toString())
-                    viewModel.save()
-                    binding.EditView.editCL.visibility = GONE
-                    setText((""))
-                    clearFocus()
-                    AndroidUtils.hideKeyboard(this)
-                }
-            }
-        }
-
     }
 }
+
+//binding.EditView.cancelButton.setOnClickListener {
+//    binding.EditView.editCL.visibility = GONE
+//    with(binding.changePostText) {
+//        viewModel.cancelEdit()
+//        clearFocus()
+//        setText("")
+//        AndroidUtils.hideKeyboard(this)
+//    }
+//}
+//
+//binding.EditViewClear.cancelBPost.setOnClickListener {
+//    binding.EditViewClear.editCLPost.visibility = GONE
+//    with(binding.changePostText) {
+//        clearFocus()
+//        setText("")
+//        AndroidUtils.hideKeyboard(this)
+//    }
+//}
+//
+//binding.changePostText.setOnFocusChangeListener { _, active ->
+//    if (active && viewModel.editedEmptyPost.value?.id == 0L) {
+//        binding.EditViewClear.editCLPost.visibility = VISIBLE
+//    }
+//}
+//
+//viewModel.editedEmptyPost.observe(this) { post ->
+//    if (post.id != 0L) {
+//        with(binding.changePostText) {
+//            requestFocus()
+//            setText(post.content)
+//            binding.EditView.editCL.visibility = VISIBLE
+//            binding.EditView.textEdit.text = post.content
+//        }
+//    }
+//}
+//
+//binding.saveButton.setOnClickListener {
+//    with(binding.changePostText) {
+//        if (text.isNullOrBlank()) {
+//            Toast.makeText(
+//                this@MainActivity,
+//                context.getString(R.string.error_empty_context),
+//                Toast.LENGTH_SHORT
+//            ).show()
+//        } else {
+//            viewModel.changeContent(text.toString())
+//            viewModel.save()
+//            binding.EditViewClear.editCLPost.visibility = GONE
+//            binding.EditView.editCL.visibility = GONE
+//            setText((""))
+//            clearFocus()
+//            AndroidUtils.hideKeyboard(this)
+//        }
+//    }
+//}
 
 //  binding.EditViewClear.editCLPost.visibility = VISIBLE
 

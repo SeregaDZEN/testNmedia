@@ -15,5 +15,7 @@
     <string name="cancel">отмена</string>
     <string name="edit_message">Редактировать сообщение</string>
     <string name="enter_cross">нажат крестик</string>
+    <string name="chooser_share_post">выбрать поделиться постом</string>
+    <string name="add_post">добавить пост</string>
 
 </resources>

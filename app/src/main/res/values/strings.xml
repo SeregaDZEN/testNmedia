@@ -23,5 +23,7 @@
     <string name="enter_cross">enter cross</string>
     <string name="editPost" translatable="false">Add Post</string>
     <string name="default_number" translatable="false">10</string>
+    <string name="chooser_share_post">chooser_share_post</string>
+    <string name="add_post">add_post</string>
 
 </resources>

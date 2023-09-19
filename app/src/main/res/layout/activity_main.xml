@@ -6,24 +6,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.MainActivity">
+    >
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listRC"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="@id/toolsTop"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
         tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp"
         tools:listitem="@layout/card_post" />
 
-    <androidx.constraintlayout.widget.Barrier
-        android:id="@+id/toolsTop"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/plus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:barrierDirection="top" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_margin="@dimen/common_spacing"
+        android:contentDescription="@string/add_post"
+        app:srcCompat="@drawable/ic_add_24" />
 
 
     <include
@@ -37,42 +40,12 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <include
-        app:layout_constraintBottom_toTopOf="@id/changePostText"
         android:id="@+id/EditViewClear"
         layout="@layout/clear_post"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@id/changePostText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
-
-
-    <EditText
-        android:id="@+id/changePostText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        android:hint="@string/post_text"
-        android:importantForAutofill="no"
-        android:inputType="textMultiLine"
-        android:padding="@dimen/common_spacing"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/saveButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/toolsTop"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <ImageButton
-        android:id="@+id/saveButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        android:contentDescription="@string/description_post_save"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/changePostText"
-        app:srcCompat="@drawable/ic_save" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
