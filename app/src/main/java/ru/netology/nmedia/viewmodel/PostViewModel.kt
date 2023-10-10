@@ -22,7 +22,7 @@ class PostViewModel : ViewModel() {
     private var repository = PostRepositoryInMemoryImpl()
 
     val dataOfClassPost = repository.getAll()
-    val editedEmptyPost = MutableLiveData(emptyPost)
+    private val editedEmptyPost = MutableLiveData(emptyPost)
     fun likeById(id: Long) = repository.likeById(id)
     fun share(id: Long) = repository.share(id)
     fun removeById(id: Long) = repository.removeById(id)
@@ -36,7 +36,8 @@ class PostViewModel : ViewModel() {
     fun edit(post: Post) {
         editedEmptyPost.value = post
     }
-    fun cancelEdit(){
+
+    fun cancelEdit() {
         editedEmptyPost.value = emptyPost
     }
 

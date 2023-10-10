@@ -1,9 +1,8 @@
 package ru.netology.nmedia.activity
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.view.View.GONE
-import android.view.View.VISIBLE
 import android.widget.Toast
 import androidx.activity.result.launch
 import androidx.activity.viewModels
@@ -13,15 +12,27 @@ import ru.netology.nmedia.adapter.OnClickListener
 import ru.netology.nmedia.adapter.PostsAdapter
 import ru.netology.nmedia.databinding.ActivityMainBinding
 import ru.netology.nmedia.dto.Post
-import ru.netology.nmedia.functions.AndroidUtils
+
 import ru.netology.nmedia.viewmodel.PostViewModel
 
 
 class MainActivity : AppCompatActivity() {
+
+    val newPostLauncher = registerForActivityResult(NewPostResultContract) { text ->
+        text ?: return@registerForActivityResult
+        viewModel.changeContent(text)
+        viewModel.save()
+    }
+
     private val viewModel: PostViewModel by viewModels()
 
-
     private val onClickListener = object : OnClickListener {
+
+        override fun onEdit(post: Post) {
+            newPostLauncher.launch(post.content)
+            viewModel.edit(post)
+        }
+
         override fun onLike(post: Post) {
             viewModel.likeById(post.id)
         }
@@ -36,14 +47,16 @@ class MainActivity : AppCompatActivity() {
             startActivity(chooser)
         }
 
-        override fun onEdit(post: Post) {
-            viewModel.edit(post)
-        }
-
         override fun onRemove(post: Post) {
             viewModel.removeById(post.id)
         }
 
+        override fun playVideo(post: Post) {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(post.uRl))
+
+            val chooser = Intent.createChooser(intent, getString(R.string.chooser_share_post))
+            startActivity(chooser)
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,25 +64,23 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val newPostLauncher = registerForActivityResult(NewPostContract) { text ->
-            text ?: return@registerForActivityResult
-            viewModel.changeContent(text)
-            viewModel.save()
-        }
 
         val adapter = PostsAdapter(onClickListener)
         binding.listRC.adapter = adapter
         viewModel.dataOfClassPost.observe(this) { posts ->
             val newPost = posts.size > adapter.currentList.size
             adapter.submitList(posts) {
-                if (newPost) binding.listRC.smoothScrollToPosition(0)
+                if (newPost) binding.listRC.smoothScrollToPosition(0)  // поднять скрол вверх
             }
         }
+
         binding.plus.setOnClickListener {
-            newPostLauncher.launch()
+            newPostLauncher.launch(null)
         }
+
     }
 }
+
 
 //binding.EditView.cancelButton.setOnClickListener {
 //    binding.EditView.editCL.visibility = GONE
@@ -162,4 +173,25 @@ class MainActivity : AppCompatActivity() {
 //        }
 //    }
 //}
+
+//
+//        binding.saveButton.setOnClickListener {
+//            with(binding.changePostText) {
+//                if (text.isNullOrBlank()) {
+//                    Toast.makeText(
+//                        this@MainActivity,
+//                        context.getString(R.string.error_empty_context),
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                } else {
+//                    viewModel.changeContent(text.toString())
+//                    viewModel.save()
+//                    binding.EditViewClear.editCLPost.visibility = GONE
+//                    binding.EditView.editCL.visibility = GONE
+//                    setText((""))
+//                    clearFocus()
+//                    AndroidUtils.hideKeyboard(this)
+//                }
+//            }
+//        }
 

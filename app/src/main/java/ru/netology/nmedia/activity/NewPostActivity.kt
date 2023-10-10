@@ -1,34 +1,36 @@
 package ru.netology.nmedia.activity
 
+
 import android.content.Context
 import android.content.Intent
+import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.activity.result.contract.ActivityResultContract
-import ru.netology.nmedia.R
-import ru.netology.nmedia.databinding.ActivityNewPostBinding
+import android.view.View.GONE
+import android.view.View.VISIBLE
+
+import ru.netology.nmedia.databinding.NewPostActivityBinding
+
 
 class NewPostActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityNewPostBinding.inflate(layoutInflater)
+        val binding = NewPostActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.add.setOnClickListener{
-            val text = binding.contentNew.text.toString()
-            if (text.isBlank()){
+        val text = intent?.getStringExtra(Intent.EXTRA_TEXT)
+        binding.contentNewPost.setText(text)
+
+        binding.add.setOnClickListener {
+            val text = binding.contentNewPost.text.toString()
+            if (text.isBlank()) {
                 setResult(RESULT_CANCELED)
-            }
-            else {
+            } else {
                 setResult(RESULT_OK, Intent().apply { putExtra(Intent.EXTRA_TEXT, text) })
             }
             finish()
         }
     }
 }
-object NewPostContract : ActivityResultContract<Unit,String?>() {
-    override fun createIntent(context: Context, input: Unit) = Intent(context,NewPostContract::class.java)
 
-    override fun parseResult(resultCode: Int, intent: Intent?) = intent?.getStringExtra(Intent.EXTRA_TEXT)
 
-}

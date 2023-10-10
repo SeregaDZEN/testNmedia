@@ -5,12 +5,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import ru.netology.nmedia.R
-import ru.netology.nmedia.databinding.ActivityIntentHandlerBinding
+import ru.netology.nmedia.databinding.IntentHandlerBinding
 
 class IntentHandlerActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityIntentHandlerBinding.inflate(layoutInflater)
+        val binding = IntentHandlerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         intent?.let {
@@ -23,6 +23,7 @@ class IntentHandlerActivity : AppCompatActivity() {
                     .setAction(android.R.string.ok){
                         finish()
                     } .show()
+                return@let
             }
         }
     }

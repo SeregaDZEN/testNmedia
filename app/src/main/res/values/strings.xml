@@ -25,5 +25,7 @@
     <string name="default_number" translatable="false">10</string>
     <string name="chooser_share_post">chooser_share_post</string>
     <string name="add_post">add_post</string>
+    <string name="icon_planet" translatable="false">icon_planet</string>
+    <string name="iconPlay">icon_play</string>
 
 </resources>

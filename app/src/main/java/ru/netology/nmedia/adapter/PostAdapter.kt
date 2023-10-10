@@ -12,6 +12,7 @@ import ru.netology.nmedia.dto.Post
 import ru.netology.nmedia.functions.reduceNumber
 
 interface OnClickListener {
+    fun playVideo ( post: Post){}
 
     fun onLike(post: Post) {}
 
@@ -27,7 +28,7 @@ class PostViewHolder(
         binding.apply {
             author.text = post.author
             published.text = post.published
-            changePostText2.text = post.content
+            cardPostText.text = post.content
             buttonShare.text = reduceNumber(post.share)
             textForSee.text = post.views.toString()
             buttonLike.text = reduceNumber(post.likes)
@@ -52,6 +53,12 @@ class PostViewHolder(
                         }
                     }
                 }.show()
+            }
+            planet.setOnClickListener{
+                onClickListener.playVideo(post)
+            }
+            floatingIcPlay.setOnClickListener{
+                onClickListener.playVideo(post)
             }
 
             buttonLike.isChecked = post.likedByMe

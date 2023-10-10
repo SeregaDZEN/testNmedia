@@ -8,6 +8,31 @@
     android:padding="@dimen/common_spacing"
     tools:context=".activity.MainActivity">
 
+    <ImageView
+        android:id="@+id/planet"
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        android:layout_marginTop="@dimen/common_spacing"
+        android:contentDescription="@string/icon_planet"
+        android:src="@drawable/planet"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/barrierBottom" />
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        app:backgroundTint="@android:color/transparent"
+        android:id="@+id/floating_ic_play"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:contentDescription="@string/iconPlay"
+        app:layout_constraintBottom_toBottomOf="@id/planet"
+        app:layout_constraintEnd_toEndOf="@id/planet"
+        app:layout_constraintStart_toStartOf="@id/planet"
+        app:layout_constraintTop_toTopOf="@id/planet"
+        app:srcCompat="@drawable/ic_play"
+       />
 
     <ImageView
         android:id="@+id/avatar"
@@ -16,7 +41,7 @@
         android:layout_marginBottom="@dimen/common_spacing"
         android:contentDescription="@string/avatar"
         android:src="@drawable/post_avatar_drawable"
-        app:layout_constraintBottom_toBottomOf="@id/barrier"
+        app:layout_constraintBottom_toBottomOf="@id/barrierTop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -43,7 +68,7 @@
         android:layout_marginStart="@dimen/common_spacing"
         android:layout_marginEnd="@dimen/common_spacing"
         android:layout_marginBottom="@dimen/common_spacing"
-        app:layout_constraintBottom_toBottomOf="@id/barrier"
+        app:layout_constraintBottom_toBottomOf="@id/barrierTop"
         app:layout_constraintEnd_toStartOf="@id/menu"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@id/avatar"
@@ -52,14 +77,14 @@
 
 
     <androidx.constraintlayout.widget.Barrier
-        android:id="@+id/barrier"
+        android:id="@+id/barrierTop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="bottom"
         app:constraint_referenced_ids="avatar,published,menu" />
 
     <TextView
-        android:id="@+id/changePostText2"
+        android:id="@+id/cardPostText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
@@ -68,7 +93,7 @@
         android:textColorLink="#2DD8BE"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/barrier"
+        app:layout_constraintTop_toBottomOf="@id/barrierTop"
         tools:text="@sample/posts.json/data/content" />
 
     <!--    <TextView-->
@@ -93,7 +118,7 @@
         app:backgroundTint="@android:color/transparent"
         app:icon="@drawable/ic_like_selector"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/contentBottom" />
+        app:layout_constraintTop_toBottomOf="@id/planet" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_share"
@@ -129,7 +154,7 @@
         android:contentDescription="@string/number_see"
         app:layout_constraintBottom_toBottomOf="@id/text_forSee"
         app:layout_constraintEnd_toStartOf="@id/text_forSee"
-        app:layout_constraintTop_toBottomOf="@id/contentBottom"
+        app:layout_constraintTop_toBottomOf="@id/barrierBottom"
         app:layout_constraintTop_toTopOf="@id/text_forSee"
         app:srcCompat="@drawable/ic_eye" />
 
@@ -156,11 +181,11 @@
     <!--        app:layout_constraintTop_toTopOf="@id/button_share" />-->
 
     <androidx.constraintlayout.widget.Barrier
-        android:id="@+id/contentBottom"
+        android:id="@+id/barrierBottom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="bottom"
-        app:constraint_referenced_ids="changePostText2" />
+        app:constraint_referenced_ids="cardPostText" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
