@@ -14,6 +14,7 @@ import ru.netology.nmedia.databinding.ActivityMainBinding
 import ru.netology.nmedia.dto.Post
 
 import ru.netology.nmedia.viewmodel.PostViewModel
+import ru.netology.nmedia.viewmodel2.PostViewModel2
 
 
 class MainActivity : AppCompatActivity() {
@@ -24,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         viewModel.save()
     }
 
-    private val viewModel: PostViewModel by viewModels()
+    private val viewModel: PostViewModel2 by viewModels() // тут заменил на 2 постVM, можно вернуть 1
 
     private val onClickListener = object : OnClickListener {
 
