@@ -14,6 +14,11 @@ class PostRepositoryInSharedPreferenceImpl(context: Context) : PostRepository {
 
     private var nextId = 1L
     private var posts = emptyList<Post>()
+        set(value) {
+            field = value
+            sync()
+            livePosts.value = value
+        }
 
     private val livePosts = MutableLiveData(posts)
 
@@ -23,8 +28,6 @@ class PostRepositoryInSharedPreferenceImpl(context: Context) : PostRepository {
         prefs.getString(key, null)?.let { itStr ->
             posts = gson.fromJson(itStr,type)
             nextId = posts.maxOf { it.id } + 1
-            livePosts.value = posts
-            sync () // добавил
         }
     }
 
@@ -37,23 +40,16 @@ class PostRepositoryInSharedPreferenceImpl(context: Context) : PostRepository {
             )
 
         }
-        livePosts.value = posts
-        sync ()
     }
 
     override fun share(id: Long) {
         posts = posts.map {
             if (it.id != id) it else it.copy( share = it.share + 1, shareByMe = true)
         }
-        livePosts.value = posts
-        sync ()
-
     }
 
     override fun removeById(id: Long) {
         posts = posts.filter { it.id != id }
-        livePosts.value = posts
-        sync ()
     }
 
     override fun save(post: Post) {
@@ -69,8 +65,6 @@ class PostRepositoryInSharedPreferenceImpl(context: Context) : PostRepository {
         } else posts.map {
             if (it.id != post.id) it else it.copy(content = post.content)
         }
-        livePosts.value = posts
-        sync ()
     }
     private fun sync (){
         with (prefs.edit() ){

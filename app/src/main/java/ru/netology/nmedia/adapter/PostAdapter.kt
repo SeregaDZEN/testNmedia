@@ -1,6 +1,7 @@
 package ru.netology.nmedia.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.recyclerview.widget.DiffUtil
@@ -12,14 +13,16 @@ import ru.netology.nmedia.dto.Post
 import ru.netology.nmedia.functions.reduceNumber
 
 interface OnClickListener {
-    fun playVideo ( post: Post){}
+    fun playVideo(post: Post) {}
 
     fun onLike(post: Post) {}
 
     fun onEdit(post: Post) {}
     fun onRemove(post: Post) {}
     fun onShare(post: Post) {}
+    fun clickRoot(post: Post) {}
 }
+
 class PostViewHolder(
     private val binding: CardPostBinding, private val onClickListener: OnClickListener
 ) : RecyclerView.ViewHolder(binding.root) {
@@ -32,6 +35,8 @@ class PostViewHolder(
             buttonShare.text = reduceNumber(post.share)
             textForSee.text = post.views.toString()
             buttonLike.text = reduceNumber(post.likes)
+
+
 
             menu.setOnClickListener {
                 PopupMenu(it.context, it).apply {
@@ -54,10 +59,16 @@ class PostViewHolder(
                     }
                 }.show()
             }
-            planet.setOnClickListener{
+
+            root.setOnClickListener {
+                onClickListener.clickRoot(post)
+            }
+
+            planet.setOnClickListener {
+
                 onClickListener.playVideo(post)
             }
-            floatingIcPlay.setOnClickListener{
+            floatingIcPlay.setOnClickListener {
                 onClickListener.playVideo(post)
             }
 
@@ -92,7 +103,6 @@ class PostsAdapter(private val onClickListener: OnClickListener) :
         holder.bind(post)
     }
 }
-
 
 
 class PostDiffCallback : DiffUtil.ItemCallback<Post>() {
