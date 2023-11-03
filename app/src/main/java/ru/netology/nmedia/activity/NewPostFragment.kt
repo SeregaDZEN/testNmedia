@@ -15,9 +15,7 @@ import ru.netology.nmedia.functions.StringArg
 import ru.netology.nmedia.viewmodel.PostViewModel
 
 class NewPostFragment : Fragment() {
-    companion object {
-        var Bundle.textArg: String? by StringArg
-    }
+
 
 
     override
@@ -45,6 +43,11 @@ class NewPostFragment : Fragment() {
         }
         return binding.root
     }
+    companion object {
+        var Bundle.textArg: String? by StringArg
+    }
 }
+//забыл уде, что делали чтобы объеденить затем просто переименовал +
+//        обработчик нажатия кнопки назад в main2
 
 

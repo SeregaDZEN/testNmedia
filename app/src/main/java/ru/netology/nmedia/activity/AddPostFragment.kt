@@ -16,6 +16,7 @@ import ru.netology.nmedia.adapter.PostViewHolder
 import ru.netology.nmedia.databinding.AddPostBinding
 import ru.netology.nmedia.dto.Post
 import ru.netology.nmedia.functions.LongArg
+import ru.netology.nmedia.functions.StringArg
 import ru.netology.nmedia.viewmodel.PostViewModel
 
 
@@ -24,9 +25,6 @@ class AddPostFragment : Fragment() {
 
     private val viewModel: PostViewModel by activityViewModels()
 
-    companion object {
-        var Bundle.idArg: Long? by LongArg
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,6 +32,7 @@ class AddPostFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val binding = AddPostBinding.inflate(layoutInflater, container, false)
+
         arguments?.idArg?.let {
             val id = requireArguments().idArg
             viewModel.dataOfClassPost.observe(viewLifecycleOwner) { posts ->
@@ -42,22 +41,23 @@ class AddPostFragment : Fragment() {
                     findNavController().navigateUp()
                     return@observe
                 }
-                PostViewHolder(binding.singlePost,onClickListener ).bind(post)
+                PostViewHolder(binding.singlePost, onClickListener).bind(post)
 
             }
         }
 
         return binding.root
     }
-    private val onClickListener = object : OnClickListener{
+
+    private val onClickListener = object : OnClickListener {
         override fun onEdit(post: Post) {
             viewModel.edit(post)
             findNavController().navigate(R.id.action_addPostFragment_to_newPostFragment,
                 Bundle().apply {
                     textArg = post.content
+
                 }
             )
-
         }
 
         override fun onLike(post: Post) {
@@ -89,6 +89,11 @@ class AddPostFragment : Fragment() {
             startActivity(chooser)
         }
     }
+
+    companion object {
+        var Bundle.idArg: Long? by LongArg
+    }
+
 }
 
 
