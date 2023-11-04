@@ -81,7 +81,7 @@ class PostViewHolder(
 
             binding.buttonShare.setOnClickListener {
                 onClickListener.onShare(post)
-                buttonShare.isChecked = post.shareByMe
+              //  buttonShare.isChecked = post.shareByMe
 
             }
         }

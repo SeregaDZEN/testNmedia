@@ -62,7 +62,6 @@ class PostDaoImpl (private val db: SQLiteDatabase) : PostDao {
             "${PostColumns.COLUMN_ID} DESC"
         ).use {
             while (it.moveToNext()) {
-
                 posts.add(map(it))
             }
         }
@@ -126,10 +125,11 @@ class PostDaoImpl (private val db: SQLiteDatabase) : PostDao {
             """
            UPDATE posts SET
                share = share + 1,
-               sharedByMe = 1
+               shareByMe = 1
            WHERE id = ?;
         """.trimIndent(), arrayOf(id)
         )
+
     }
 
 
