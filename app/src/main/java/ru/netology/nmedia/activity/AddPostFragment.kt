@@ -16,11 +16,11 @@ import ru.netology.nmedia.adapter.PostViewHolder
 import ru.netology.nmedia.databinding.AddPostBinding
 import ru.netology.nmedia.dto.Post
 import ru.netology.nmedia.functions.LongArg
-import ru.netology.nmedia.functions.StringArg
 import ru.netology.nmedia.viewmodel.PostViewModel
 
 
 class AddPostFragment : Fragment() {
+
 
 
     private val viewModel: PostViewModel by activityViewModels()

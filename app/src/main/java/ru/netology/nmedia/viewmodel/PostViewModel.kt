@@ -4,10 +4,12 @@ package ru.netology.nmedia.viewmodel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+
 import ru.netology.nmedia.db.AppDb
 import ru.netology.nmedia.dto.Post
 import ru.netology.nmedia.repository.PostRepository
 import ru.netology.nmedia.repository.PostRepositorySQLiteImpl
+
 
 private val emptyPost = Post(
     id = 0,
@@ -20,9 +22,8 @@ private val emptyPost = Post(
     likedByMe = false
 )
 
-class PostViewModel(application: Application) : AndroidViewModel(application ) {
-  //  val c = AppDb
-   // AppDb
+class PostViewModel(application: Application) : AndroidViewModel(application) {
+
 
     private val repository: PostRepository = PostRepositorySQLiteImpl(
 
@@ -46,9 +47,6 @@ class PostViewModel(application: Application) : AndroidViewModel(application ) {
         editedEmptyPost.value = post
     }
 
-    fun cancelEdit() {
-        editedEmptyPost.value = emptyPost
-    }
 
     fun changeContent(content: String) {
         editedEmptyPost.value?.let {
