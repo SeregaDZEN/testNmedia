@@ -18,5 +18,9 @@
     <string name="chooser_share_post">выбрать поделиться постом</string>
     <string name="add_post">добавить пост</string>
     <string name="iconPlay">иконка проиграть</string>
+    <string name="channel_remote_name">Уведомления  с сервера</string>
+    <string name="channel_remote_description">Уведомления с удаленного сервера</string>
+    <string name="notification_user_liked">%1$s поставил лайк  посту   %2$s`s</string>
+    <string name="notification_user_published">%1$s опубликовал новый пост: %2$s`s</string>
 
 </resources>

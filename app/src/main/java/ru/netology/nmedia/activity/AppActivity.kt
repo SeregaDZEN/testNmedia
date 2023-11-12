@@ -1,9 +1,12 @@
 package ru.netology.nmedia.activity
 
+
+import android.Manifest
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
-import androidx.navigation.findNavController
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.snackbar.Snackbar
 import ru.netology.nmedia.R
@@ -44,5 +47,20 @@ class AppActivity : AppCompatActivity() {
             })
 
         }
+        requestNotificationsPermission()
+    }
+
+    private fun requestNotificationsPermission() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) { // текущая версия андроида
+            return
+        }
+
+        val permission = Manifest.permission.POST_NOTIFICATIONS // разреш на уведомл
+
+        if (checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED) { // провверка есть ли такое разр
+            return
+        }
+
+        requestPermissions(arrayOf(permission), 1) // запрос на уведомл : диалог
     }
 }

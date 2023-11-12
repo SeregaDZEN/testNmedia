@@ -27,5 +27,9 @@
     <string name="add_post">add_post</string>
     <string name="icon_planet" translatable="false">icon_planet</string>
     <string name="iconPlay">icon_play</string>
+    <string name="channel_remote_name">Server notifications</string>
+    <string name="channel_remote_description">Notifications from remote server</string>
+    <string name="notification_user_liked">User %1$s liked %2$s`s post</string>
+    <string name="notification_user_published">User %1$s published %2$s`s post</string>
 
 </resources>
